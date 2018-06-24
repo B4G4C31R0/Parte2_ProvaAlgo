@@ -1,0 +1,171 @@
+from Prova import *
+
+listaA=[]
+listaP=[]
+
+listaT=[]
+listaTP=[]
+
+#Aluno
+cadI=[]
+cadH=[]
+cadL=[]
+
+#Professor
+notas=[]
+faltas=[]
+dic=[]
+
+
+while True:
+    q=int(input("""
+Escolha uma opção:
+
+1) Para fazer o cadastro
+2) Para fazer login
+3) Mostrar cadastrados
+
+Digite: """))
+
+
+#Cadastro
+    if q==1:
+        t=int(input("Tipo de cadastro (1.Aluno|2.Professor): "))
+        if t==1:
+            print ("Cadastro de aluno:")
+            n=input("Seu nome: ")
+            e=input("Seu email: ")
+            l=input("Seu login: ")
+            s=input("Sua Senha: ")
+            adicionar(cadastro(n,e,l,s,t),listaA)
+            print ("Cadastrado com Sucesso!")
+        elif t==2:
+            print ("Cadastro de professor:")
+            n=input("Seu nome: ")
+            e=input("Seu email: ")
+            l=input("Seu login: ")
+            s=input("Sua Senha: ")
+            adicionar(cadastro(n,e,l,s,t),listaP)
+            print ("Cadastrado com Sucesso!")
+
+#Login
+    if q==2:
+        lo=input("Login: ")
+        se=input("Senha: ")
+
+#Aluno        
+        if (lo in listaA[0]["login"]) and (se in listaA[0]["senha"]):
+            print(40*"=")
+            print ("Logado com sucesso.")
+            print(40*"=")
+
+            a1=int(input("""Escolha uma da opções:
+1)Cadastrar e consultar os idiomas que deseja estudar.
+2)Cadastrar e consultar o horário e o dia que melhor pode frequentar a escola.
+3) Cadastrar e consultar o local (cidade e estado) onde pretente realizar o curso.
+
+Digita sua escolha: """))
+            if a1==1:
+                print(40*"=")
+                print ("Idiomas disponívels: (1)Inglês e (2)Espanhol")
+                print(40*"=")
+                a11=int(input("Digite (1|2) para se cadastrar ou 3 para sair: "))
+                if a11==1:
+                    adicionar({"Idioma":"Inglês"},listaT)
+
+                if a11==2:
+                    adicionar({"Idioma":"Espanhol"},listaT)
+                if a11==3:
+                    break
+            if a1==2:
+                a12=int(input("""Horários disponíveis:
+
+I)Inglês:
+1) Segunda às 9:30hs e Quarta às 11:00hs
+2) Terça às 7:00hs e Quinta às 13:00hs
+
+II)Espanhol:
+1) Terça às 15:00hs e Sexta às 9:00hs
+2) Quarta às 7:00hs e Quinta às 11:00hs
+
+Digite sua escolha: """))
+                if a12==1:
+                    print(40*"=")
+                    a121=int(input("Escolha qual horario deseja(1|2): "))
+                    if a121==1:
+                        adicionar({"Horário 1":"Inglês"},listaT)
+                    if a121==2:
+                        adicionar({"Horário 2":"Inglês"},listaT)
+                if a12==2:
+                    a122=int(input("Escolha qual horário deseja(1|2): "))
+                    if a122==1:
+                        adicionar({"Horário 1":"Espanhol"},listaT)
+                    if a122==2:
+                        adicionar({"Horário 1":"Espanhol"},listaT)
+                    
+            if a1==3:
+                a13=int(input("""Local e cidades disponiveis:
+I)Inglês:
+1)Mossoró - IF
+2)Mossoró - UERN
+
+II)Espanhol:
+1)Mossoró - IF
+2)Mossoró - UERN
+
+Escolha qual deseja (1|2): """))
+                if a13==1:
+                    a131=int(input("Escolha qual local deseja(1|2): "))
+                    if a131==1:
+                        adicionar({"Inglês":"Mossoró - IF"},listaT)
+                    if a131==2:
+                        adicionar({"Inglês":"Mossoró - UERN"},listaT)
+                if a13==2:
+                    a132=int(input("Escolha qual local deseja(1|2): "))
+                    if a132==1:
+                        adicionar({"Espanhol":"Mossoró - IF"},listaT)
+                    if a132==2:
+                        adicionar({"Espanhol":"Mossoró - IF"},listaT)
+
+#Professor
+
+        elif (lo in listaP[0]["login"]) and (se in listaP[0]["senha"]):
+            p1=int(input("""Escolha uma da opções:
+
+            1)Cadastrar notas dos alunos
+            2)Numero de falta dos alunos
+            3)Disciplinas ministradas
+            4)Mostrar perfil do aluno
+            
+            Digita sua escolha: """))
+
+            if p1==1:
+                print(40*"=")
+                p11=input("Nome do aluno: ")
+                pp1=int(input("Nota do aluno: "))
+                if p11 in listaA[0]["Nome"]:
+                    adicionar(pp1,listaT)
+                else:
+                    adicionar(alunonota(p11,pp1),listaTP)
+                    adicionar(listaTP,listaT)
+            print(40*"=")
+            if p1==2:
+                print(40*"=")
+                p12=input("Nome do aluno: ")
+                pp2=int(input("Faltas: "))
+                adicionar(alunofalta(p12,pp2),listaTP)
+                adicionar(listaTP,listaT)
+            print(40*"=")
+            if p1==3:
+                p13=input("Diciplinas que ministra: ")
+                adicionar(p13,dic)
+                print(dic)
+            if p1==4:
+                mostra(listaTP)
+
+
+#Lista cadastrados
+    if q==3:
+        print (listaT)
+
+              
